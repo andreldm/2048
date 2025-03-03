@@ -1,0 +1,20 @@
+{
+  "name": "2048",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/main.js",
+  "author": "Andre Miranda",
+  "private": true,
+  "scripts": {
+    "dev": "tsc && vite --host",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "phaser": "^3.60.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.4",
+    "vite": "^4.3.8"
+  }
+}
