@@ -1,6 +1,7 @@
 extends Node2D
 
-var block_scene = preload("res://scenes/block.tscn")
+const DEBUG: bool = false
+const block_scene = preload("res://scenes/block.tscn")
 var blocks = []
 var moving_count: int = 0
 var direction: Direction
@@ -8,8 +9,13 @@ var direction: Direction
 enum Direction { UP, DOWN, LEFT, RIGHT }
 
 func _ready() -> void:
-	add_block()
-	add_block()
+	if DEBUG:
+		create_block(1, 1, 4)
+		create_block(2, 1, 2)
+		create_block(3, 1, 2)
+	else:
+		add_block()
+		add_block()
 
 func _process(delta):
 	if Input.is_action_just_pressed("Up"):
@@ -114,10 +120,8 @@ func add_block():
 			positions.push_front([x, y])
 
 	var position = positions[randi_range(0, len(positions) - 1)]
-	var block = block_scene.instantiate() as Node2D
-	block.set_posxy(position[0], position[1])
-	add_child(block)
-	blocks.push_front(block)
+	if (position && !DEBUG):
+		create_block(position[0], position[1])
 
 func get_at(x: int, y: int, comparator: Callable):
 	for b in blocks:
@@ -136,3 +140,11 @@ func sort(direction: Direction):
 		if direction == Direction.RIGHT: return a.posx > b.posx
 		return false
 	)
+
+func create_block(x, y, value = null):
+	var block = block_scene.instantiate() as Node2D
+	block.set_posxy(x, y)
+	add_child(block)
+	if DEBUG:
+		block.set_value(value)
+	blocks.push_front(block)

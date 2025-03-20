@@ -30,6 +30,11 @@ func set_posxy(x, y):
 	position.x = (PAD * posx) + (SIZE * posx)
 	position.y = (PAD * posy) + (SIZE * posy)
 
+# Only used for debugging
+func set_value(value):
+	self.value = value
+	update_looks()
+
 func merge():
 	value *= 2
 	merged = true

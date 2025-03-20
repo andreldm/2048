@@ -12,18 +12,18 @@ class Block extends h2d.Object {
     var blockManager: BlockManager;
     var tiles: Map<Int, h2d.Tile>;
 
-    public function new(scene: h2d.Scene, posx: Int, posy: Int, blockManager: BlockManager, tiles: Map<Int, h2d.Tile>) {
+    public function new(scene: h2d.Scene, value:Int, posx: Int, posy: Int, blockManager: BlockManager, tiles: Map<Int, h2d.Tile>) {
         super(scene);
 
         this.posx = posx;
         this.posy = posy;
         this.blockManager = blockManager;
         this.tiles = tiles;
-        this.value = Math.random() < 0.9 ? 2 : 4;
+        this.value = value != null ? value : Math.random() < 0.9 ? 2 : 4;
 
         blockManager.add(this);
 
-        var bmp = new h2d.Bitmap(tiles.get(value), this);
+        var bmp = new h2d.Bitmap(tiles.get(this.value), this);
         bmp.scaleX = bmp.scaleY = 0;
         var x = PAD + (PAD * posx) + (SIZE * posx);
         var y = PAD + (PAD * posy) + (SIZE * posy);

@@ -1,8 +1,8 @@
 import hxd.Key;
 
 class InputManager {
-    final SWIPE_THRESHOLD: Int = 200;
-    final listeners: Array<Listener> = [];
+    static final SWIPE_THRESHOLD: Int = 200;
+    static final listeners: Array<Listener> = [];
     var startX: Float = 0;
     var startY: Float = 0;
     var pressed: Bool = false;

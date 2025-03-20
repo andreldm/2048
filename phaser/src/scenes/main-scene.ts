@@ -49,10 +49,6 @@ export class MainScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'grid').setOrigin(0);
         const blockManager = new BlockManager(this);
-        // new Block(this, 4, 0, 2, blockManager);
-        // new Block(this, 2, 1, 2, blockManager);
-        // new Block(this, 2, 2, 2, blockManager);
-        // new Block(this, 4, 3, 2, blockManager);
         blockManager.addBlock();
         blockManager.addBlock();
 

@@ -1,6 +1,7 @@
 using Lambda;
 
 class BlockManager implements Listener {
+    static final DEBUG: Bool = true;
     final scene: h2d.Scene;
     final tiles: Map<Int, h2d.Tile>;
     final blocks: Array<Block> = [];
@@ -10,6 +11,12 @@ class BlockManager implements Listener {
     public function new(scene: h2d.Scene, tiles: Map<Int, h2d.Tile>) {
         this.scene = scene;
         this.tiles = tiles;
+
+        if (DEBUG) {
+            new Block(scene, 4, 1, 1, this, tiles);
+            new Block(scene, 2, 2, 1, this, tiles);
+            new Block(scene, 2, 3, 1, this, tiles);
+        }
     }
 
     public function add(block: Block) {
@@ -114,8 +121,9 @@ class BlockManager implements Listener {
             }
         }
 
-        var position = (positions[Math.floor(Math.random() * (positions.length))]);
-        new Block(scene, position[0], position[1], this, tiles);
+        var position = positions[Math.floor(Math.random() * (positions.length))];
+        if (position != null && !DEBUG)
+            new Block(scene, null, position[0], position[1], this, tiles);
     }
 
     private function getAt(x: Int, y: Int, comparator: Block -> Bool): Block {

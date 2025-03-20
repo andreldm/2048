@@ -3,6 +3,8 @@ import Block from './block';
 import { Direction } from '../input-manager';
 
 export default class BlockManager {
+    private readonly DEBUG: Boolean = false;
+
     private blocks: Block[] = [];
     private movingCount: number = 0;
     private direction: Direction;
@@ -10,6 +12,12 @@ export default class BlockManager {
 
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
+
+        if (this.DEBUG) {
+            new Block(scene, 4, 1, 1, this);
+            new Block(scene, 2, 2, 1, this);
+            new Block(scene, 2, 3, 1, this);
+        }
     }
 
     add(block: Block) {
@@ -116,8 +124,9 @@ export default class BlockManager {
                 if (this.getAt(x, y, () => true) != undefined) continue;
                 positions.push([x, y]);
             }
-        const position = (positions[Math.floor(Math.random() * (positions.length))]);
-        new Block(this.scene, undefined, position[0], position[1], this);
+        const position = positions[Math.floor(Math.random() * (positions.length))];
+        if (position && !this.DEBUG)
+            new Block(this.scene, undefined, position[0], position[1], this);
     }
 
     getAt(x: number, y: number, comparator: Function) {
