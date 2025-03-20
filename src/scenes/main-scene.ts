@@ -9,7 +9,7 @@ export class MainScene extends Phaser.Scene {
 
     create() {
         const size = 600;
-        const blockSize = 150;
+        const blockSize = 130; // 600/4=150 but we need to deduct 16px for the border + 8px for half width of grid lines
 
         // create texture for the grid
         const graphics = this.make.graphics({ x: 0, y: 0 });
@@ -18,7 +18,10 @@ export class MainScene extends Phaser.Scene {
         graphics.lineStyle(16, 0xbbada0);
         graphics.strokeRoundedRect(8, 8, size - 16, size - 16, 8); // outer border
         for (let i = 1; i < 4; i++) { // grid lines
-            const pos = (i * blockSize) + ((i - 2) * -4);
+            // 16px for the border
+            // 8px because we want to draw the line aligned to its middle
+            // 16px for each line that was already drawn
+            const pos = (i * blockSize) + 16 + 8 + ((i - 1) * 16);
             graphics.strokeLineShape(new Phaser.Geom.Line(pos, 0, pos, size)); // vertical
             graphics.strokeLineShape(new Phaser.Geom.Line(0, pos, size, pos)); // horizontal
         }
@@ -32,9 +35,9 @@ export class MainScene extends Phaser.Scene {
             const number = el[0];
             const color: number = el[1];
 
-            const rt = this.add.renderTexture(0, 0, blockSize - 20, blockSize - 20);
+            const rt = this.add.renderTexture(0, 0, blockSize, blockSize);
             rt.fill(color, 1.0);
-            const text = this.add.text((blockSize - 20) / 2, (blockSize - 20) / 2, "" + number, {
+            const text = this.add.text(blockSize / 2, blockSize / 2, "" + number, {
                 fontSize: "64px",
                 fontFamily: "Arial",
                 color: number <= 4 ? "#786e64" : "#f7f3f4"
