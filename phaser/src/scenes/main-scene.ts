@@ -16,8 +16,7 @@ export class MainScene extends Phaser.Scene {
         graphics.fillStyle(0xcdc0b4);
         graphics.fillRect(16, 16, size - 32, size - 32); // background
         graphics.lineStyle(16, 0xbbada0);
-        graphics.strokeRoundedRect(8, 8, size - 16, size - 16, 8); // outer border
-        for (let i = 1; i < 4; i++) { // grid lines
+        for (let i = 0; i < 5; i++) { // grid lines
             // 16px for the border
             // 8px because we want to draw the line aligned to its middle
             // 16px for each line that was already drawn

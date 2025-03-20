@@ -13,5 +13,4 @@ const config: Phaser.Types.Core.GameConfig = {
 if (window.devicePixelRatio > 2)
   document.body.style.zoom = '60%';
 
-
 new Phaser.Game(config);
