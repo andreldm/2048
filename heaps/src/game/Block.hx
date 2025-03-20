@@ -3,9 +3,8 @@ import motion.Actuate;
 class Block extends h2d.Object {
     public static final SIZE: Int = 130;
     static final PAD: Int = 16;
-    static final INITIAL_VALUE: Int = 2;
 
-    public var value(default, null): Int = INITIAL_VALUE;
+    public var value(default, null): Int;
     public var posx(default, null): Int; // from 0 to 3
     public var posy(default, null): Int; // from 0 to 3
     public var merged: Bool = false; // to guarantee a block merges only once per move
@@ -20,6 +19,7 @@ class Block extends h2d.Object {
         this.posy = posy;
         this.blockManager = blockManager;
         this.tiles = tiles;
+        this.value = Math.random() < 0.9 ? 2 : 4;
 
         blockManager.add(this);
 
@@ -42,7 +42,7 @@ class Block extends h2d.Object {
         var y = PAD + (PAD * posy) + (SIZE * posy);
         bmp.setPosition(x, y);
 
-        Actuate.tween(bmp, 0.1, { x: x - (SIZE * 0.05 / 2),
+        Actuate.tween(bmp, 0.2, { x: x - (SIZE * 0.05 / 2),
                                   y: y - (SIZE * 0.05 / 2),
                                   scaleX: 1.05,
                                   scaleY: 1.05 }, false)

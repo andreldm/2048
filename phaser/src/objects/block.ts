@@ -2,11 +2,10 @@ import { Scene } from 'phaser';
 import BlockManager from './block-manager';
 
 export default class Block extends Phaser.GameObjects.Sprite {
-    private readonly INITIAL_VALUE: number = 2;
     private readonly SIZE: number = 130;
     private readonly PAD: number = 16;
 
-    private value: number = this.INITIAL_VALUE;
+    private value: number;
     private posx: number; // from 0 to 3
     private posy: number; // from 0 to 3
     private blockManager: BlockManager;
@@ -20,10 +19,10 @@ export default class Block extends Phaser.GameObjects.Sprite {
         this.blockManager = blockManager;
         this.blockManager.add(this);
 
-        this.value = value;
+        this.value = value ? value : Math.random() < 0.9 ? 2 : 4;
         this.posx = posx;
         this.posy = posy;
-        this.setTexture('number' + value);
+        this.setTexture('number' + this.value);
         this.setPosition(this.PAD + this.SIZE / 2 + (this.PAD * posx) + (this.SIZE * posx),
                          this.PAD + this.SIZE / 2 + (this.PAD * posy) + (this.SIZE * posy));
 

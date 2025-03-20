@@ -3,7 +3,7 @@ extends Node2D
 @onready var sprite: ColorRect = $Sprite
 @onready var label: Label = $Sprite/Label
 
-@export var value: int = 2
+@export var value: int
 @export var posx: int # from 0 to 3
 @export var posy: int # from 0 to 3
 @export var merged: bool = false # to guarantee a block merges only once per move
@@ -18,6 +18,7 @@ const COLORS = {
 }
 
 func _ready() -> void:
+	value = 2 if randi_range(0, 9) < 9 else 4
 	update_looks()
 	sprite.scale = Vector2(0, 0)
 	var tween = get_tree().create_tween()

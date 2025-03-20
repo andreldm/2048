@@ -117,7 +117,7 @@ export default class BlockManager {
                 positions.push([x, y]);
             }
         const position = (positions[Math.floor(Math.random() * (positions.length))]);
-        new Block(this.scene, 2, position[0], position[1], this);
+        new Block(this.scene, undefined, position[0], position[1], this);
     }
 
     getAt(x: number, y: number, comparator: Function) {
