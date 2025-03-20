@@ -38,7 +38,7 @@ export class MainScene extends Phaser.Scene {
             const rt = this.add.renderTexture(0, 0, blockSize, blockSize);
             rt.fill(color, 1.0);
             const text = this.add.text(blockSize / 2, blockSize / 2, "" + number, {
-                fontSize: "64px",
+                fontSize: number <= 512 ? "64px" : "48px",
                 fontFamily: "Arial",
                 color: number <= 4 ? "#786e64" : "#f7f3f4"
             }).setOrigin(0.5);
