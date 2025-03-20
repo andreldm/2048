@@ -19,6 +19,9 @@ const COLORS = {
 
 func _ready() -> void:
 	update_looks()
+	sprite.scale = Vector2(0, 0)
+	var tween = get_tree().create_tween()
+	tween.tween_property(sprite, "scale", Vector2(1, 1), 0.1)
 
 func set_posxy(x, y):
 	posx = x
