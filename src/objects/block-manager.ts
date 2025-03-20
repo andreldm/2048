@@ -23,6 +23,7 @@ export default class BlockManager {
     }
 
     handle(direction: Direction) {
+        // ignore further key presses until all blocks finished moving
         if (this.movingCount != 0) return;
 
         this.sort(direction);
@@ -43,13 +44,16 @@ export default class BlockManager {
         newx = Phaser.Math.Clamp(newx, 0, 3);
         newy = Phaser.Math.Clamp(newy, 0, 3);
 
+        // if the position doesn't change, i.e. because reached the edge of grid, then do nothing
         if (newx == block.PosX && newy == block.PosY) {
             return;
         }
 
         // console.log(`current: ${block.PosX}x${block.PosY} -> new: ${newx}x${newy}`);
 
-        const other = this.getAt(newx, newy, (b: Block) => b.Value != block.Value);
+        // check if the new position is not occupied by a block of different value
+        // or even if the value is equal (meaning we could merge them), if it just 
+        const other = this.getAt(newx, newy, (b: Block) => b.Value != block.Value || b.merged);
         if (other != undefined) {
             return;
         }
@@ -60,22 +64,31 @@ export default class BlockManager {
 
     moveFinished(block: Block) {
         this.movingCount--;
+
+        // check if under another block
+        // if so it's because they have the same value and should be merged
+        // otherwise try to continue moving
         const other = this.getAt(block.PosX, block.PosY, (b: Block) => b != block);
         if (other != undefined) {
-            other.bump();
+            other.merge();
             this.blocks.splice(this.blocks.indexOf(block), 1);
             block.destroy();
         } else {
             this.sort(this.direction);
             this.tryToMove(block);
         }
-        this.addBlock();
+
+        // if all blocks finished moving we can add a new one
+        if (this.movingCount == 0) {
+            this.addBlock();
+
+            // we should also to unmark all blocks as merged
+            this.blocks.forEach((b) => b.merged = false);
+        }
     }
 
     addBlock() {
-        if (this.movingCount != 0)
-            return;
-
+        // find an empty cell to place the new block randomly
         const positions = [];
         for (let x = 0; x < 4; x++)
             for (let y = 0; y < 4; y++) {
@@ -90,8 +103,9 @@ export default class BlockManager {
         return this.blocks.find((b: Block) => b.PosX == x && b.PosY == y && comparator(b));
     }
 
+    // sorting is important because, for example, if the user pressed left then
+    // the blocks on the left side should be processed first
     sort(direction: Direction) {
-        // console.log("Before: " + this.blocks.map((b) => `${b.PosX}x${b.PosY}`));
         this.blocks.sort((a: Block, b: Block) => {
             if (direction == Direction.Up) return a.PosY - b.PosY;
             if (direction == Direction.Down) return b.PosY - a.PosY;
@@ -99,6 +113,5 @@ export default class BlockManager {
             if (direction == Direction.Right) return b.PosX - a.PosX;
             return 0;
         });
-        // console.log("After: " + this.blocks.map((b) => `${b.PosX}x${b.PosY}`));
     }
 }
