@@ -1,0 +1,1 @@
+Electron setup based on https://pandaqi.com/blog/tutorials/deploy-phaser-game-as-executables/

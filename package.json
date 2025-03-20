@@ -1,19 +1,38 @@
 {
   "name": "2048",
   "version": "0.0.1",
-  "description": "",
-  "main": "src/main.js",
+  "description": "2048 clone",
+  "main": "electron.js",
   "author": "Andre Miranda",
   "private": true,
   "scripts": {
     "dev": "tsc && vite --host",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "build": {
+    "files": [
+      "!locales/*",
+      "locales/en-US.pak"
+    ]
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.1",
     "phaser": "^3.60.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.7.0",
+    "@electron-forge/maker-deb": "^7.7.0",
+    "@electron-forge/maker-rpm": "^7.7.0",
+    "@electron-forge/maker-squirrel": "^7.7.0",
+    "@electron-forge/maker-zip": "^7.7.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.7.0",
+    "@electron-forge/plugin-fuses": "^7.7.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "^35.0.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.8"
   }
