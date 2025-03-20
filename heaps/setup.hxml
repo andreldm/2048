@@ -1,0 +1,12 @@
+# Heaps
+--cmd haxelib --always git hlsdl https://github.com/HaxeFoundation/hashlink.git master libs/sdl
+--cmd haxelib --always git heaps https://github.com/deepnight/heaps.git
+
+# Other libs
+--cmd haxelib --always git actuate https://github.com/jgranick/actuate.git
+
+# Hashlink
+--cmd haxelib install hashlink
+
+# Done
+--cmd haxelib list

@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>2048</title>
+        <style>
+            html { height: 100%; }
+            * { padding: 0; margin: 0; }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100%;
+                overflow: hidden; /* Hide scrollbars */
+            }
+
+            #game-container { display: flex; justify-content: center; }
+        </style>
+    </head>
+    <body id="body">
+
+        <canvas id="webgl" globalevents="0" style="width: 600px; height:600px"></canvas>
+        <script type="text/javascript" src="out/game.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,5 @@
+base.hxml
+-D windowSize=600x600
+-D windowTitle=2048
+-hl out/game.hl
+-lib hlsdl

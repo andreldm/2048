@@ -1,0 +1,9 @@
+-cp src/game
+
+-lib heaps
+-lib actuate
+
+-D actuate_manual_time
+-D actuate_manual_update
+
+-main Main
