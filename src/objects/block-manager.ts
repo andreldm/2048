@@ -64,12 +64,20 @@ export default class BlockManager {
             return undefined;
         }
 
-        // check if the new position is not occupied by a block of different value
-        // or even if the value is equal (meaning we could merge them), if it just
-        // merged then this block shouldn't proceed
-        const other = this.getAt(newx, newy, (b: Block) => b.Value != block.Value || b.merged);
+        // check if the new position is not occupied by a block
+        //
+        // if other block's value is the same and it's not merged or going to merge
+        // the move can proceed and we mark both blocks as "going to merge"
+        //
+        // if the value is different or the block is merged/going to merge
+        // then the move should be stopped
+        const other = this.getAt(newx, newy, () => true);
         if (other != undefined) {
-            return undefined;
+            if (other.Value == block.Value && !other.merged && !other.goingToMerge) {
+                other.goingToMerge = block.goingToMerge = true;
+            } else {
+                return undefined;
+            }
         }
 
         return [newx, newy];
@@ -96,7 +104,7 @@ export default class BlockManager {
             this.addBlock();
 
             // we should also to unmark all blocks as merged
-            this.blocks.forEach((b) => b.merged = false);
+            this.blocks.forEach((b) => b.merged = b.goingToMerge = false);
         }
     }
 

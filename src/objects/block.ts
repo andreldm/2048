@@ -11,6 +11,7 @@ export default class Block extends Phaser.GameObjects.Sprite {
     private posy: number; // from 0 to 3
     private blockManager: BlockManager;
     public merged: boolean = false; // to guarantee a block merges only once per move
+    public goingToMerge: boolean = false; // to guarantee a block merges only once per move
 
     constructor(scene: Scene, value: number ,posx: number, posy: number, blockManager: BlockManager) {
         super(scene, 0, 0, '');
