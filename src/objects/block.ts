@@ -23,9 +23,15 @@ export default class Block extends Phaser.GameObjects.Sprite {
         this.posx = posx;
         this.posy = posy;
         this.setTexture('number' + value);
-        this.setPosition(this.PAD + (this.PAD * posx) + (this.SIZE * posx),
-                         this.PAD + (this.PAD * posy) + (this.SIZE * posy));
-        this.setOrigin(0);
+        this.setPosition(this.PAD + this.SIZE / 2 + (this.PAD * posx) + (this.SIZE * posx),
+                         this.PAD + this.SIZE / 2 + (this.PAD * posy) + (this.SIZE * posy));
+
+        this.setScale(0);
+        this.scene.tweens.add({
+            targets: this,
+            scale: 1,
+            duration: 100
+        });
     }
 
     get PosX(): number {
@@ -44,6 +50,13 @@ export default class Block extends Phaser.GameObjects.Sprite {
         this.value *= 2;
         this.merged = true;
         this.setTexture('number' + this.value);
+
+        this.scene.tweens.add({
+            targets: this,
+            scale: 1.05,
+            duration: 100,
+            yoyo: true
+        });
     }
 
     moveToPosition(posx: number, posy: number) {
@@ -53,8 +66,8 @@ export default class Block extends Phaser.GameObjects.Sprite {
         this.scene.tweens.add({
             targets: this,
             props: {
-                x: { value: this.PAD + (this.PAD * posx) + (this.SIZE * posx), duration: 100, ease: 'Linear' },
-                y: { value: this.PAD + (this.PAD * posy) + (this.SIZE * posy), duration: 100, ease: 'Linear' }
+                x: { value: this.PAD + this.SIZE / 2 + (this.PAD * posx) + (this.SIZE * posx), duration: 100, ease: 'Linear' },
+                y: { value: this.PAD + this.SIZE / 2 + (this.PAD * posy) + (this.SIZE * posy), duration: 100, ease: 'Linear' }
             },
             onComplete: (tween) => {
                 this.blockManager.moveFinished(this);
