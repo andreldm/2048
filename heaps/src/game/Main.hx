@@ -8,6 +8,7 @@ class Main extends hxd.App {
     }
 
     override function init() {
+        hxd.Res.initEmbed();
         SimpleActuator.getTime = function () return lastTime;
 
         var numbers:Map<Int, h2d.Tile> = [];
@@ -31,6 +32,7 @@ class Main extends hxd.App {
         }
 
         // create textures for blocks
+        var font = hxd.Res.liberation.toFont();
         for (el in [[2, 0xefe5da], [4, 0xece0c6], [8, 0xf1b179], [16, 0xf69564], [32, 0xf77c5f], [64, 0xf55e3a], [128, 0xedce72],
             [256, 0xeccb60], [512, 0xeec851], [1024, 0xecc53e], [2048, 0xecc22f], [4096, 0x9201cf], [8192, 0x59007f],
             [16384, 0x35004d], [32768, 0x000000]]) {
@@ -43,7 +45,6 @@ class Main extends hxd.App {
             rect.drawRect(0, 0, Block.SIZE, Block.SIZE);
             rect.endFill();
 
-            var font = hxd.res.DefaultFont.get();
             font.resizeTo(number <= 512 ? 64 : 48);
             var text = new h2d.Text(font, container);
             text.text = Std.string(number);
