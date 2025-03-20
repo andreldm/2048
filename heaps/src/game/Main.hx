@@ -63,7 +63,7 @@ class Main extends hxd.App {
         blockManager.addBlock();
         blockManager.addBlock();
 
-        new InputManager(blockManager);
+        new InputManager(s2d, blockManager);
     }
 
     override function update(dt: Float) {
