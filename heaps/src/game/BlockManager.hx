@@ -1,7 +1,7 @@
 using Lambda;
 
 class BlockManager implements Listener {
-    static final DEBUG: Bool = true;
+    static final DEBUG: Bool = false;
     final scene: h2d.Scene;
     final tiles: Map<Int, h2d.Tile>;
     final blocks: Array<Block> = [];
@@ -128,7 +128,7 @@ class BlockManager implements Listener {
 
         var position = positions[Math.floor(Math.random() * (positions.length))];
         if (position != null && !DEBUG)
-            new Block(scene, null, position[0], position[1], this, tiles);
+            new Block(scene, 0, position[0], position[1], this, tiles);
     }
 
     private function getAt(x: Int, y: Int, comparator: Block -> Bool): Block {

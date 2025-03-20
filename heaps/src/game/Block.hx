@@ -19,7 +19,7 @@ class Block extends h2d.Object {
         this.posy = posy;
         this.blockManager = blockManager;
         this.tiles = tiles;
-        this.value = value != null ? value : Math.random() < 0.9 ? 2 : 4;
+        this.value = value != 0 ? value : Math.random() < 0.9 ? 2 : 4;
 
         blockManager.add(this);
 
