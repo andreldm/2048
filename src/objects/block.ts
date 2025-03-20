@@ -46,15 +46,15 @@ export default class Block extends Phaser.GameObjects.Sprite {
         this.setTexture('number' + this.value);
     }
 
-    moveToPosition(posx: number, posy: number, delta: number) {
+    moveToPosition(posx: number, posy: number) {
         this.posx = posx;
         this.posy = posy;
 
         this.scene.tweens.add({
             targets: this,
             props: {
-                x: { value: this.PAD + (this.PAD * posx) + (this.SIZE * posx), duration: 50 * delta, ease: 'Linear' },
-                y: { value: this.PAD + (this.PAD * posy) + (this.SIZE * posy), duration: 50 * delta, ease: 'Linear' }
+                x: { value: this.PAD + (this.PAD * posx) + (this.SIZE * posx), duration: 100, ease: 'Linear' },
+                y: { value: this.PAD + (this.PAD * posy) + (this.SIZE * posy), duration: 100, ease: 'Linear' }
             },
             onComplete: (tween) => {
                 this.blockManager.moveFinished(this);

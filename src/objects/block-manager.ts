@@ -36,30 +36,43 @@ export default class BlockManager {
         let newx = block.PosX;
         let newy = block.PosY;
 
-        if (this.direction == Direction.Left) newx--;
-        if (this.direction == Direction.Right) newx++;
-        if (this.direction == Direction.Up) newy--;
-        if (this.direction == Direction.Down) newy++;
-
-        newx = Phaser.Math.Clamp(newx, 0, 3);
-        newy = Phaser.Math.Clamp(newy, 0, 3);
+        for (let i = 0; i < 3; i++) {
+            const pos = this.getNextPosition(newx, newy, block);
+            if (pos == undefined) {
+                break;
+            }
+            newx = pos[0];
+            newy = pos[1];
+        }
 
         // if the position doesn't change, i.e. because reached the edge of grid, then do nothing
         if (newx == block.PosX && newy == block.PosY) {
             return;
         }
 
-        // console.log(`current: ${block.PosX}x${block.PosY} -> new: ${newx}x${newy}`);
+        block.moveToPosition(newx, newy);
+        this.movingCount++;
+    }
 
-        // check if the new position is not occupied by a block of different value
-        // or even if the value is equal (meaning we could merge them), if it just 
-        const other = this.getAt(newx, newy, (b: Block) => b.Value != block.Value || b.merged);
-        if (other != undefined) {
-            return;
+    getNextPosition(newx: number, newy: number, block: Block): [number, number] {
+        if (this.direction == Direction.Left) newx--;
+        if (this.direction == Direction.Right) newx++;
+        if (this.direction == Direction.Up) newy--;
+        if (this.direction == Direction.Down) newy++;
+
+        if (newx < 0 || newx > 3 || newy < 0 || newy > 3) {
+            return undefined;
         }
 
-        block.moveToPosition(newx, newy, 1);
-        this.movingCount++;
+        // check if the new position is not occupied by a block of different value
+        // or even if the value is equal (meaning we could merge them), if it just
+        // merged then this block shouldn't proceed
+        const other = this.getAt(newx, newy, (b: Block) => b.Value != block.Value || b.merged);
+        if (other != undefined) {
+            return undefined;
+        }
+
+        return [newx, newy];
     }
 
     moveFinished(block: Block) {
