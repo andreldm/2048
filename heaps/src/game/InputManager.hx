@@ -20,7 +20,7 @@ class InputManager {
     }
 
     function onEvent(event : hxd.Event) {
-        if (event.kind == EKeyDown) {
+        if (event.kind == EKeyDown && !pressed) {
             switch(event.keyCode) {
                 case Key.LEFT | Key.A: handle(Direction.Left);
                 case Key.RIGHT | Key.D: handle(Direction.Right);
@@ -31,6 +31,7 @@ class InputManager {
                 #end
             }
         }
+        if (event.kind == EKeyUp) pressed = false;
     }
 
     function onClickPressed(event: hxd.Event) {
@@ -64,6 +65,7 @@ class InputManager {
     }
 
     function handle(direction: Direction) {
+        pressed = true;
         for (l in listeners)
             l.handle(direction);
     }
