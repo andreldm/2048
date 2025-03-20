@@ -1,3 +1,5 @@
+import hxd.Key;
+
 class InputManager {
     final SWIPE_THRESHOLD: Int = 100;
     final listeners: Array<Listener> = [];
@@ -19,20 +21,12 @@ class InputManager {
     function onEvent(event : hxd.Event) {
         if (event.kind == EKeyDown) {
             switch(event.keyCode) {
-                case hxd.Key.LEFT:
-                case hxd.Key.A:
-                    handle(Direction.Left);
-                case hxd.Key.RIGHT:
-                case hxd.Key.D:
-                    handle(Direction.Right);
-                case hxd.Key.UP:
-                case hxd.Key.W:
-                    handle(Direction.Up);
-                case hxd.Key.DOWN:
-                case hxd.Key.S:
-                    handle(Direction.Down);
+                case Key.LEFT | Key.A: handle(Direction.Left);
+                case Key.RIGHT | Key.D: handle(Direction.Right);
+                case Key.UP | Key.W: handle(Direction.Up);
+                case Key.DOWN | Key.S: handle(Direction.Down);
                 #if !js
-                case hxd.Key.ESCAPE: hxd.Window.getInstance().close();
+                case Key.ESCAPE: hxd.Window.getInstance().close();
                 #end
             }
         }
