@@ -115,7 +115,7 @@ class BlockManager implements Listener {
         }
 
         var position = (positions[Math.floor(Math.random() * (positions.length))]);
-        new Block(scene, 2, position[0], position[1], this, tiles);
+        new Block(scene, position[0], position[1], this, tiles);
     }
 
     private function getAt(x: Int, y: Int, comparator: Block -> Bool): Block {

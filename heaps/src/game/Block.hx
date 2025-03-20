@@ -13,10 +13,9 @@ class Block extends h2d.Object {
     var blockManager: BlockManager;
     var tiles: Map<Int, h2d.Tile>;
 
-    public function new(scene: h2d.Scene, value: Int, posx: Int, posy: Int, blockManager: BlockManager, tiles: Map<Int, h2d.Tile>) {
+    public function new(scene: h2d.Scene, posx: Int, posy: Int, blockManager: BlockManager, tiles: Map<Int, h2d.Tile>) {
         super(scene);
 
-        this.value = value;
         this.posx = posx;
         this.posy = posy;
         this.blockManager = blockManager;
