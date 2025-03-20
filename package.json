@@ -32,6 +32,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.7.0",
     "@electron-forge/plugin-fuses": "^7.7.0",
     "@electron/fuses": "^1.8.0",
+    "@tauri-apps/cli": "^2.3.1",
     "electron": "^35.0.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.8"
