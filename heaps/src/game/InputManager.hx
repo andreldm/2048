@@ -13,6 +13,7 @@ class InputManager {
         listeners.push(listener);
 
         interactive = new h2d.Interactive(scene.width, scene.height, scene);
+        interactive.cursor = Default;
         interactive.onPush = onClickPressed;
         interactive.onRelease = onClickReleased;
         interactive.onReleaseOutside = onClickReleased;
