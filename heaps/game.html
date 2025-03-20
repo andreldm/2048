@@ -1,8 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimal-ui" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <title>2048</title>
         <style>
             html { height: 100%; }
@@ -15,13 +19,21 @@
                 min-height: 100%;
                 overflow: hidden; /* Hide scrollbars */
             }
+            #webgl {
+                outline: none;
+            }
         </style>
     </head>
-    <body>
-        <canvas id="webgl" globalevents="0"></canvas>
+    <body oncontextmenu="return false;">
+        <canvas id="webgl" globalevents="1"></canvas>
         <script>
-            const size = 600 / window.devicePixelRatio;
-            document.querySelector('#webgl').style = `width: ${size}px; height: ${size}px;`;
+            window.onload = () => {
+                const canvas = document.querySelector('#webgl');
+                let size = 600 / window.devicePixelRatio;
+                if (window.devicePixelRatio > 2)
+                    size *= 1.8;
+                canvas.style = `width: ${size}px; height: ${size}px`;
+            };
         </script>
         <script type="text/javascript" src="out/game.js"></script>
     </body>

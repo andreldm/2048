@@ -1,9 +1,8 @@
 import hxd.Key;
 
 class InputManager {
-    final SWIPE_THRESHOLD: Int = 100;
+    final SWIPE_THRESHOLD: Int = 200;
     final listeners: Array<Listener> = [];
-    final interactive: h2d.Interactive;
     var startX: Float = 0;
     var startY: Float = 0;
     var pressed: Bool = false;
@@ -11,12 +10,6 @@ class InputManager {
     public function new(scene: h2d.Scene, listener: Listener) {
         hxd.Window.getInstance().addEventTarget(onEvent);
         listeners.push(listener);
-
-        interactive = new h2d.Interactive(scene.width, scene.height, scene);
-        interactive.cursor = Default;
-        interactive.onPush = onClickPressed;
-        interactive.onRelease = onClickReleased;
-        interactive.onReleaseOutside = onClickReleased;
     }
 
     function onEvent(event : hxd.Event) {
@@ -32,6 +25,8 @@ class InputManager {
             }
         }
         if (event.kind == EKeyUp) pressed = false;
+        if (event.kind == EPush) onClickPressed(event);
+        if (event.kind == ERelease) onClickReleased(event);
     }
 
     function onClickPressed(event: hxd.Event) {

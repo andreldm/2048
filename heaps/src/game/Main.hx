@@ -8,6 +8,8 @@ class Main extends hxd.App {
     }
 
     override function init() {
+        s2d.scaleMode = Stretch(600, 600);
+
         hxd.Res.initEmbed();
         SimpleActuator.getTime = function () return lastTime;
 
