@@ -57,6 +57,11 @@ class BlockManager implements Listener {
     }
 
     private function getNextPosition(newx: Int, newy: Int, block: Block): Array<Int> {
+        // if this block just merged, don't try to move again
+        if (block.merged) {
+            return null;
+        }
+
         if (direction == Direction.Left) newx--;
         if (direction == Direction.Right) newx++;
         if (direction == Direction.Up) newy--;

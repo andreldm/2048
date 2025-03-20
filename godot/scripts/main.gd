@@ -59,6 +59,10 @@ func try_to_move(block):
 	moving_count += 1
 
 func get_next_position(x: int, y: int, block) -> Array:
+	# if this block just merged, don't try to move again
+	if block.merged:
+		return []
+
 	var newx = x
 	var newy = y
 	if direction == Direction.LEFT: newx -= 1

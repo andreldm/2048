@@ -63,6 +63,11 @@ export default class BlockManager {
     }
 
     getNextPosition(newx: number, newy: number, block: Block): [number, number] {
+        // if this block just merged, don't try to move again
+        if (block.merged) {
+            return undefined;
+        }
+
         if (this.direction == Direction.Left) newx--;
         if (this.direction == Direction.Right) newx++;
         if (this.direction == Direction.Up) newy--;
