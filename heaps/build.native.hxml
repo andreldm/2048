@@ -4,4 +4,5 @@ base.hxml
 -hl out/main.c
 -lib hlsdl
 
+# Using -O2 or -03 causes the game to render just a black screen
 --cmd gcc -O1 -o out/game -std=c11 -Iout /usr/lib/*.hdll out/main.c -lhl -lm -luv
